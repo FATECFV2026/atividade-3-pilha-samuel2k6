@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class App {
 
@@ -30,6 +29,9 @@ public class App {
                 case 5:
                     executarExercicio05(scanner);
                     break;
+                case 6:
+                    executarExercicio06(scanner);
+                    break;
                 case 0:
                     System.out.println("Encerrando o programa.");
                     break;
@@ -45,12 +47,13 @@ public class App {
     }
 
     private static void exibirMenuPrincipal() {
-        System.out.println("=== Exercicios com Fila ===");
-        System.out.println("1 - Fila com valores fixos");
-        System.out.println("2 - Fila de nomes");
-        System.out.println("3 - Remover 10 numeros da fila");
-        System.out.println("4 - Fila de atendimento");
-        System.out.println("5 - Fila de impressao");
+        System.out.println("=== Exercicios com Pilha ===");
+        System.out.println("1 - Pilha com valores fixos");
+        System.out.println("2 - Pilha de nomes");
+        System.out.println("3 - Remover 10 numeros da pilha");
+        System.out.println("4 - Menu interativo de pilha");
+        System.out.println("5 - Inverter palavra com pilha");
+        System.out.println("6 - Historico de navegacao");
         System.out.println("0 - Sair");
     }
 
@@ -69,105 +72,171 @@ public class App {
         }
     }
 
+
+
     private static void executarExercicio01() {
-        Queue<Integer> fila = criarFilaValoresFixos();
-        System.out.println(fila);
-        fila.poll();
-        System.out.println(fila);
+        Stack<Integer> pilha = new Stack<>();
+
+        pilha.push(10);
+        pilha.push(20);
+        pilha.push(30);
+        pilha.push(40);
+        pilha.push(50);
+
+        System.out.println(pilha);
+        pilha.pop();
+        System.out.println(pilha);
     }
+
 
     private static void executarExercicio02() {
-        Queue<String> fila = criarFilaNomes();
-        System.out.println(fila.peek());
-        System.out.println(fila.size());
+        Stack<String> pilha = new Stack<>();
+
+        pilha.push("Ana");
+        pilha.push("Carlos");
+        pilha.push("Pedro");
+        pilha.push("Juliana");
+
+        System.out.println(pilha.peek());
+        System.out.println(pilha.size());
     }
+
 
     private static void executarExercicio03(Scanner scanner) {
-        Queue<Integer> fila = new LinkedList<>();
+        Stack<Integer> numeros = new Stack<>();
 
-    for (int i = 1; i <= 10; i++) {
-        fila.add(i);
+        for (int i = 1; i <= 10; i++) {
+        numeros.push(i);
     }
 
-    List<Integer> removidos = removerTodosElementos(fila);
+    System.out.println("Elementos removidos:");
 
-    System.out.println("Elementos removidos: " + removidos);
-    System.out.println("Fila vazia? " + fila.isEmpty());
+    while (!numeros.isEmpty()) {
+        System.out.println(numeros.pop());
     }
+}
+
 
     private static void executarExercicio04(Scanner scanner) {
-        Queue<String> fila = new LinkedList<>();
-    fila.add("Ana");
-    fila.add("Carlos");
-    fila.add("Pedro");
+    Stack<Integer> pilha = new Stack<>();
+    int opcao;
 
-    List<String> atendidos = atenderClientes(fila);
+    do {
+        System.out.println("\n=== MENU PILHA ===");
+        System.out.println("1 - Empilhar");
+        System.out.println("2 - Desempilhar");
+        System.out.println("3 - Mostrar topo");
+        System.out.println("4 - Mostrar pilha");
+        System.out.println("5 - Sair");
 
-    System.out.println("Clientes atendidos: " + atendidos);
-    System.out.println("Fila vazia? " + fila.isEmpty());
-    }
+        opcao = lerInteiro(scanner, "Escolha uma opcao: ");
+
+        switch (opcao) {
+            case 1:
+                int valor = lerInteiro(scanner, "Digite um valor: ");
+                pilha.push(valor);
+                break;
+
+            case 2:
+                if (!pilha.isEmpty()) {
+                    System.out.println("Removido: " + pilha.pop());
+                } else {
+                    System.out.println("Pilha vazia.");
+                }
+                break;
+
+            case 3:
+                if (!pilha.isEmpty()) {
+                    System.out.println("Topo: " + pilha.peek());
+                } else {
+                    System.out.println("Pilha vazia.");
+                }
+                break;
+
+            case 4:
+                System.out.println("Pilha: " + pilha);
+                break;
+
+            case 5:
+                System.out.println("Saindo...");
+                break;
+
+            default:
+                System.out.println("Opcao invalida.");
+        }
+
+    } while (opcao != 5);
+}
 
     private static void executarExercicio05(Scanner scanner) {
-        Queue<String> fila = new LinkedList<>();
+    Stack<Character> pilha = new Stack<>();
 
-    adicionarDocumento(fila, "relatorio.pdf");
-    adicionarDocumento(fila, "boleto.pdf");
+    System.out.print("Digite uma palavra: ");
+    String palavra = scanner.nextLine();
 
-    System.out.println("Proximo documento: " + proximoDocumento(fila));
-    System.out.println("Imprimindo: " + imprimirDocumento(fila));
-    System.out.println("Proximo documento: " + proximoDocumento(fila));
+    for (char letra : palavra.toCharArray()) {
+        pilha.push(letra);
     }
 
-    public static Queue<Integer> criarFilaValoresFixos() {
-        Queue<Integer> fila = new LinkedList<>();
-        fila.add(10);
-        fila.add(20);
-        fila.add(30);
-        fila.add(40);
-        fila.add(50);
+    String invertida = "";
 
-        return fila;
+    while (!pilha.isEmpty()) {
+        invertida += pilha.pop();
     }
 
-    public static Queue<String> criarFilaNomes() {
-        Queue<String> fila = new LinkedList<>();
-        fila.add("Ana");
-        fila.add("Carlos");
-        fila.add("Pedro");
-        fila.add("Juliana");
+    System.out.println(invertida);
+}
 
-        return fila;
-    }
 
-    public static List<Integer> removerTodosElementos(Queue<Integer> fila) {
-        List<Integer> removidos = new ArrayList<>();
+    private static void executarExercicio06(Scanner scanner) {
+    Stack<String> historico = new Stack<>();
+    int opcao;
 
-    while (!fila.isEmpty()) {
-        removidos.add(fila.poll());
-    }
+    do {
+        System.out.println("\n=== HISTORICO DE NAVEGACAO ===");
+        System.out.println("1 - Visitar pagina");
+        System.out.println("2 - Voltar pagina");
+        System.out.println("3 - Mostrar pagina atual");
+        System.out.println("4 - Exibir historico");
+        System.out.println("5 - Sair");
 
-    return removidos;
-    }
+        opcao = lerInteiro(scanner, "Escolha uma opcao: ");
 
-    public static List<String> atenderClientes(Queue<String> fila) {
-        List<String> atendidos = new ArrayList<>();
+        switch (opcao) {
+            case 1:
+                System.out.print("Digite a pagina: ");
+                String pagina = scanner.nextLine();
+                historico.push(pagina);
+                break;
 
-    while (!fila.isEmpty()) {
-        atendidos.add(fila.poll());
-    }
+            case 2:
+                if (!historico.isEmpty()) {
+                    System.out.println("Voltando da pagina: " + historico.pop());
+                } else {
+                    System.out.println("Historico vazio.");
+                }
+                break;
 
-    return atendidos;
-    }
+            case 3:
+                if (!historico.isEmpty()) {
+                    System.out.println("Pagina atual: " + historico.peek());
+                } else {
+                    System.out.println("Nenhuma pagina aberta.");
+                }
+                break;
 
-    public static void adicionarDocumento(Queue<String> fila, String documento) {
-        fila.add(documento);
-    }
+            case 4:
+                System.out.println("Historico: " + historico);
+                break;
 
-    public static String imprimirDocumento(Queue<String> fila) {
-        return fila.poll();
-    }
+            case 5:
+                System.out.println("Saindo...");
+                break;
 
-    public static String proximoDocumento(Queue<String> fila) {
-        return fila.peek();
-    }
+            default:
+                System.out.println("Opcao invalida.");
+        }
+
+    } while (opcao != 5);
+}
 }
