@@ -75,12 +75,6 @@ public class App {
     private static void executarExercicio01() {
         Stack<Integer> pilha = criarPilhaValoresFixos();
 
-        pilha.push(10);
-        pilha.push(20);
-        pilha.push(30);
-        pilha.push(40);
-        pilha.push(50);
-
         System.out.println(pilha);
         pilha.pop();
         System.out.println(pilha);
@@ -239,13 +233,13 @@ public class App {
     } while (opcao != 5);
 }
 
-public static Stack<Integer> criarPilhaValoresFixos() {
-    Stack<Integer> pilha = new Stack<>();
-    pilha.push(10);
-    pilha.push(20);
-    pilha.push(30);
-    pilha.push(40);
-    pilha.push(50);
-    return pilha;
-}
+    public static Stack<Integer> criarPilhaValoresFixos() {
+        Stack<Integer> pilha = new Stack<>();
+        pilha.push(10);
+        pilha.push(20);
+        pilha.push(30);
+        pilha.push(40);
+        pilha.push(50);
+        return pilha;
+    }
 }
