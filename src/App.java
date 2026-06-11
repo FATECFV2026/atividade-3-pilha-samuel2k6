@@ -82,16 +82,11 @@ public class App {
 
 
     private static void executarExercicio02() {
-        Stack<String> pilha = new Stack<>();
+    Stack<String> pilha = criarPilhaNomes();
 
-        pilha.push("Ana");
-        pilha.push("Carlos");
-        pilha.push("Pedro");
-        pilha.push("Juliana");
-
-        System.out.println(pilha.peek());
-        System.out.println(pilha.size());
-    }
+    System.out.println("Topo: " + pilha.peek());
+    System.out.println("Quantidade de elementos: " + pilha.size());
+}
 
 
     private static void executarExercicio03(Scanner scanner) {
@@ -234,12 +229,65 @@ public class App {
 }
 
     public static Stack<Integer> criarPilhaValoresFixos() {
-        Stack<Integer> pilha = new Stack<>();
+    Stack<Integer> pilha = new Stack<>();
+        
         pilha.push(10);
         pilha.push(20);
         pilha.push(30);
         pilha.push(40);
         pilha.push(50);
         return pilha;
+    }
+    
+    public static Stack<String> criarPilhaNomes() {
+    Stack<String> pilha = new Stack<>();
+        pilha.push("Ana");
+        pilha.push("Carlos");
+        pilha.push("Pedro");
+        pilha.push("Juliana");
+        return pilha;
+    }
+
+    public static List<Integer> removerTodosElementos(Stack<Integer> pilha) {
+    List<Integer> removidos = new ArrayList<>();
+        while (!pilha.isEmpty()) {
+            removidos.add(pilha.pop());
+        }
+
+        return removidos;
+    }
+
+    public static String inverterPalavra(String palavra) {
+    Stack<Character> pilha = new Stack<>();
+
+        for (char letra : palavra.toCharArray()) {
+            pilha.push(letra);
+        }
+
+        StringBuilder invertida = new StringBuilder();
+
+        while (!pilha.isEmpty()) {
+            invertida.append(pilha.pop());
+        }
+
+        return invertida.toString();
+    }
+
+    public static void visitarPagina(Stack<String> historico, String pagina) {
+        historico.push(pagina);
+    }
+
+    public static String voltarPagina(Stack<String> historico) {
+        if (historico.isEmpty()) {
+            return null;
+        }
+        return historico.pop();
+    }
+
+    public static String paginaAtual(Stack<String> historico) {
+        if (historico.isEmpty()) {
+            return null;
+        }
+        return historico.peek();
     }
 }
